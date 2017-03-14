@@ -2,6 +2,6 @@
 
 Students:
 
-* Surname_1, First_name_1
+* Borrego, Adrian
 
-* Surname_2, First_name_2
+* Pradas, Gerard
