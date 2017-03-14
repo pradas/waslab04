@@ -15,6 +15,13 @@ try{
 
 	/* Task #2: Write your code here. Use the function xmlpp (implemented below)
 	 * to print the 2 SOAP messages (request and response).*/
+
+  echo "\n \n----------- HTTP REQUEST : \n";
+  echo $sClient->__getLastRequestHeaders() . "\n";
+  echo xmlpp($sClient->__getLastRequest());
+  echo "\n \n----------- HTTP RESPONSE : \n";
+  echo $sClient->__getLastResponseHeaders() . "\n";
+  echo xmlpp($sClient->__getLastResponse());
 	
 	// Task #3: Uncomment the following lines:
 	/* $inCur = "EUR";
