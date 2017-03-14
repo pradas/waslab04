@@ -32,7 +32,17 @@ try{
 	
 	
 	// Task #4: Call CurrencyConverterPlus and display its result:
-	
+	$currency = new stdClass();
+  $currency->from_Currency = "CNY";
+  $currency->to_Currency = ["EUR", "CAD", "TRY"];
+  $currency->amount = 1000;
+
+  $outAmount = $sClient->CurrencyConverterPlus($currency);
+
+  echo $currency->amount, " ", $currency->from_Currency, "\n";
+  foreach ($outAmount as $value) {
+    echo "        ==> ", $value->amount, " ",$value->currency, "\n";
+  }
 	
 	
 } catch(SoapFault $e){

@@ -14,7 +14,40 @@
             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
 			
 			<!-- ComplexType Definitions -->
-			
+
+            <complexType name="ArrayOfString">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType"
+                            wsdl:arrayType="xsd:string[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="ConversionRequest">
+                <sequence>
+                    <element name="from_Currency" type="xsd:string"/>   
+                    <element name="to_Currency" type="xsd1:ArrayOfString"/>   
+                    <element name="amount" type="xsd:double"/>   
+                </sequence>
+            </complexType>
+
+            <complexType name="ConversionResult">
+                <sequence>
+                    <element name="currency" type="xsd:string"/>   
+                    <element name="amount" type="xsd:double"/>   
+                </sequence>
+            </complexType>
+
+            <complexType name="ArrayOfConversionResult">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType"
+                            wsdl:arrayType="xsd1:ConversionResult[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            
          </schema>
     </types>
  
@@ -39,6 +72,18 @@
     </message>
 
     <!-- -->
+
+    <!-- task 4 -->
+
+    <message name="CurrencyConverterPlusRequest">
+        <part name="currencyConvert" type="xsd1:ConversionRequest"/>
+    </message>
+    
+    <message name="CurrencyConverterPlusResponse">
+        <part name="cresult" type="xsd1:ArrayOfConversionResult"/>
+    </message>
+
+    <!-- -->
  
     <portType name="WSLab_PortType">
         <operation name="FahrenheitToCelsius">
@@ -48,6 +93,10 @@
         <operation name="CurrencyConverter">
             <input message="tns:CurrencyConverterRequest"/>
             <output message="tns:CurrencyConverterResponse"/>
+        </operation>
+        <operation name="CurrencyConverterPlus">
+            <input message="tns:CurrencyConverterPlusRequest"/>
+            <output message="tns:CurrencyConverterPlusResponse"/>
         </operation>
     </portType>
  
@@ -71,6 +120,22 @@
         
         <operation name="CurrencyConverter">
             <soap:operation soapAction="CurrencyConverter"/>
+            <input>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="urn:examples:wslabservice"
+                    use="encoded"/>
+            </input>
+            <output>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="urn:examples:wslabservice"
+                    use="encoded"/>
+            </output>
+        </operation>
+
+        <operation name="CurrencyConverterPlus">
+            <soap:operation soapAction="CurrencyConverterPlus"/>
             <input>
                 <soap:body
                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
