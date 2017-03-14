@@ -24,12 +24,12 @@ try{
   echo xmlpp($sClient->__getLastResponse());
 	
 	// Task #3: Uncomment the following lines:
-	/* $inCur = "EUR";
+	$inCur = "EUR";
 	$outCur = "CNY";
 	$inAmount = 100;
 	$outAmount = $sClient->CurrencyConverter($inCur,$outCur,$inAmount);
 	echo "\n   ", $inAmount, " ",$inCur, " ==> ",$outAmount, " ",$outCur,"\n\n";
-	*/
+	
 	
 	// Task #4: Call CurrencyConverterPlus and display its result:
 	

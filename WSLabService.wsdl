@@ -25,11 +25,29 @@
         <part name="cresult" type="xsd:double"/>
 		<part name="timeStamp" type="xsd:date"/>
     </message>
+
+    <!-- task 3 -->
+
+    <message name="CurrencyConverterRequest">
+        <part name="from_Currency" type="xsd:string"/>
+        <part name="to_Currency" type="xsd:string"/>
+        <part name="amount" type="xsd:double"/>
+    </message>
+    
+    <message name="CurrencyConverterResponse">
+        <part name="cresult" type="xsd:double"/>
+    </message>
+
+    <!-- -->
  
     <portType name="WSLab_PortType">
         <operation name="FahrenheitToCelsius">
             <input message="tns:FahrenheitToCelsiusRequest"/>
             <output message="tns:FahrenheitToCelsiusResponse"/>
+        </operation>
+        <operation name="CurrencyConverter">
+            <input message="tns:CurrencyConverterRequest"/>
+            <output message="tns:CurrencyConverterResponse"/>
         </operation>
     </portType>
  
@@ -37,6 +55,22 @@
         <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="FahrenheitToCelsius">
             <soap:operation soapAction="FahrenheitToCelsius"/>
+            <input>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="urn:examples:wslabservice"
+                    use="encoded"/>
+            </input>
+            <output>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="urn:examples:wslabservice"
+                    use="encoded"/>
+            </output>
+        </operation>
+        
+        <operation name="CurrencyConverter">
+            <soap:operation soapAction="CurrencyConverter"/>
             <input>
                 <soap:body
                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
