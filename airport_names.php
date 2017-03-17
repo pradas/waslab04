@@ -5,13 +5,32 @@ try{
 
   $sClient = new SoapClient('http://www.webservicex.net/airport.asmx?WSDL');
 
-  // Get the necessary parameters from the request
-  // Use $sClient to call the operation GetCitiesByCountry
-  // echo the returned info as a JSON array of strings (city names)
+  $country = new stdClass();
+  $country->country = $_GET["country"];
 
-  header(':', true, 501); // Just remove this line to return the successful 
-                          // HTTP-response status code 200.
-  echo '["Not","Yet","Implemented"]';
+  $result = $sClient->GetAirportInformationByCountry($country);
+  $airports = new SimpleXMLElement($result->GetAirportInformationByCountryResult);
+
+  $arr = Array();
+
+  $i = 0;
+  foreach ($airports->Table as $airport) {
+    $arr[$i]["name"] = (string)$airport->CityOrAirportName;
+    $arr[$i]["code"] = (string)$airport->AirportCode;
+    $i++;
+  }
+  sort($arr);
+
+  $arr2 = Array();
+  $i = 0;
+  foreach ($arr as $item) {
+  	if($i % 2 == 0) {
+       $arr2[]=$arr[$i]; 
+  	}
+    $i++;
+  }
+
+  echo json_encode($arr2);
 
 }
 catch(SoapFault $e){

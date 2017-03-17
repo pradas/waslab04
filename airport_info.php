@@ -9,9 +9,13 @@ try{
   // Use $sClient to call the operation GetWeather
   // echo the returned info as a JSON object
 
-  header(':', true, 501); // Just remove this line to return the successful 
-                          // HTTP-response status code 200.
-  echo json_encode(array('Result' => 'Not implemented'));
+  $code = new stdClass();
+  $code->airportCode = $_GET['code'];
+  
+  $result = $sClient->GetAirportInformationByAirportCode($code);
+  $info = new SimpleXMLElement($result->getAirportInformationByAirportCodeResult);
+
+  echo json_encode($info->Table);
   
 }
 catch(SoapFault $e){
